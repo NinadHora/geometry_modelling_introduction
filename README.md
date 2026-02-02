@@ -1,10 +1,10 @@
-Representações Celulares e Esfera Geodésica
+# Representações Celulares e Esfera Geodésica
 
 Modelagem Geométrica — IMPA, Verão 2026
 Prof. Luiz Henrique de Figueiredo
 
 
-Sobre
+# Sobre
 Este repositório contém a implementação das duas primeiras tarefas do curso de Modelagem Geométrica do IMPA. A Tarefa 1 explora representações celulares (uniformes e adaptativas) de regiões definidas implicitamente no plano. A Tarefa 2 constrói esferas geodésicas a partir de sólidos platônicos, exportando malhas triangulares em formato OBJ.
 A implementação foi feita em Python. Minha ideia inicial era usar C++, mas tive bastante dificuldade para montar o ambiente de compilação e linking com bibliotecas gráficas, então migrei para Python com matplotlib e numpy — o que acabou sendo uma boa escolha pela facilidade de iteração e visualização rápida dos resultados.
 
@@ -16,7 +16,7 @@ Estrutura do repositório
 └── README.md
 Ao rodar cada script, as imagens e arquivos OBJ são gerados na mesma pasta do script.
 
-Tarefa 1 — Representações Celulares
+# Tarefa 1 — Representações Celulares
 O problema
 Dada uma função implícita f(x,y)f(x,y)
 f(x,y) que define uma região no plano (f≤0f \leq 0
@@ -55,7 +55,7 @@ Divide o domínio numa grade regular N×NN \times N
 N×N. Cada célula é classificada independentemente. É o método mais simples: para 32×3232 \times 32
 32×32, temos 1024 células. Funciona, mas gasta a mesma resolução em regiões que são inteiramente dentro ou inteiramente fora — onde não precisamos de detalhe nenhum.
 
-Enumeração adaptativa (Quadtree)
+# Enumeração adaptativa (Quadtree)
 A Quadtree resolve exatamente essa ineficiência. A estrutura de dados foi introduzida por Finkel e Bentley (1974) para busca em chaves compostas, mas se aplica naturalmente à enumeração espacial: começamos com uma única célula cobrindo todo o domínio e subdividimos recursivamente em 4 quadrantes apenas as células classificadas como fronteira. Células homogêneas (toda dentro ou toda fora) permanecem grandes.
 O refinamento adaptativo segue a abordagem de Suffern (1990), que aplicou quadtrees especificamente para contorno de funções de duas variáveis.
 Resultado para o disco: a Quadtree (profundidade máxima 7) usa 583 células contra 1024 da uniforme — 43% menos — com resolução muito superior na fronteira.
